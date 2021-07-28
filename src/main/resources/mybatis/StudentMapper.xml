@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myt.mapper.StudentMapper">
+
+    <select id="getALL" resultType="Student">
+        select e.id, e.ename, e.email, e.gender, e.birthday, e.did, dname
+        from student e
+        left join college d on d.id = e.did
+    </select>
+
+    <select id="getStudentByID" resultType="Student">
+       select e.id, e.ename, e.email, e.gender, e.birthday, e.did, dname
+        from student e
+        left join college d on d.id = e.did
+        where e.id = #{id}
+    </select>
+
+    <delete id="delete">
+        delete from student where id = #{id}
+    </delete>
+
+    <insert id="addStudent" parameterType="Student">
+        insert into student (ename, email, gender,birthday, did )
+        VALUES (#{ename}, #{email}, #{gender},#{birthday},#{did})
+    </insert>
+
+    <update id="updateStudent" parameterType="Student">
+        update student set  ename=#{ename},
+                            email = #{email},
+                            gender = #{gender},
+                            did = #{did},
+                            birthday = #{birthday}
+                        where id = #{id}
+    </update>
+</mapper>
+
